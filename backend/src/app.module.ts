@@ -5,13 +5,11 @@ import * as mongoose from 'mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-import { LoggerMiddleware } from './logger/logger.middleware';
+import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://root:1234@localhost:27017/', {
-      autoIndex: true,
-    }),
+    MongooseModule.forRoot('mongodb://root:1234@localhost:27017/'),
     UsersModule,
   ],
   controllers: [AppController],
