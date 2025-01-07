@@ -26,6 +26,6 @@ export class UsersService {
       nickname,
       password: hashedPassword,
     });
-    return newUser;
+    return newUser.readOnlyData;
   }
 }

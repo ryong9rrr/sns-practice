@@ -13,13 +13,7 @@ export class UsersController {
 
   @Post('signup')
   async signup(@Body() body: UserRequestDto) {
-    const { _id, email, nickname } = await this.usersService.signup(body);
-
-    return {
-      id: _id,
-      email,
-      nickname,
-    };
+    return await this.usersService.signup(body);
   }
 
   @Post('signin')
