@@ -26,6 +26,11 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, documentFactory);
 
+  // cors
+  app.enableCors({
+    origin: 'http://localhost:5173', // true로 설정하면 모두 open(*과 같음.)
+    // credentials: true, // (아직 미확인이지만, 쿠키를 사용할 경우 프론트와 백엔드 둘 다 true로 해줘야함.)
+  });
   await app.listen(8000);
 }
 bootstrap();

@@ -27,6 +27,8 @@ export class UsersController {
   })
   @Post('signup')
   async signup(@Body() body: UserSignupRequestDto): Promise<ReadOnlyUserDto> {
+    console.log(body);
+
     return await this.usersService.signup(body);
   }
 

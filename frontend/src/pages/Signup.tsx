@@ -1,16 +1,14 @@
 import { Link } from 'react-router'
 import { FormValueType, SignupForm } from '../components/signup/SignupForm'
+import axios from 'axios'
 
 export const SignupPage = () => {
-  const onSubmit = (formValues: FormValueType) => {
-    window
-      .fetch('http://localhost:8000/users/signup', {
-        method: 'POST',
-        body: JSON.stringify(formValues),
-        credentials: 'include', // withCredentials: true와 같음.
-      })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
+  const onSubmit = async (formValues: FormValueType) => {
+    const { data } = await axios.post('http://localhost:8000/users/signup', {
+      ...formValues,
+    })
+
+    console.log(data)
   }
 
   return (
