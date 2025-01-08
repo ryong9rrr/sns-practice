@@ -1,15 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { OmitType } from '@nestjs/swagger';
+import { User } from '../users.schema';
 
-export class UserRequestDto {
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
-  @IsString()
-  @IsNotEmpty()
-  password: string;
-
-  @IsString()
-  @IsNotEmpty()
-  nickname: string;
-}
+export class UserSignupRequestDto extends OmitType(User, ['imgUrl'] as const) {}

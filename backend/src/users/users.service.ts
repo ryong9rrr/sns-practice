@@ -3,7 +3,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
-import { UserRequestDto } from './dto/users.request.dto';
+import { UserSignupRequestDto } from './dto/users.request.dto';
 import { User } from './users.schema';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class UsersService {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
-  async signup(body: UserRequestDto) {
+  async signup(body: UserSignupRequestDto) {
     const { email, password, nickname } = body;
 
     const isExist = await this.userModel.exists({ email });
