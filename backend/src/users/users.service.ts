@@ -1,5 +1,4 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserSignupRequestDto } from './dto/users.request.dto';
 import { UsersRepository } from './users.repository';
 import { hash } from './utils/hash';
 
@@ -7,8 +6,8 @@ import { hash } from './utils/hash';
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async signup(body: UserSignupRequestDto) {
-    const { email, password, nickname } = body;
+  async signup(props: { email: string; password: string; nickname: string }) {
+    const { email, password, nickname } = props;
 
     const isExistResult = await this.usersRepository.isExistUserByEmail({
       email,

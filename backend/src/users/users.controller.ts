@@ -1,11 +1,7 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
-import {
-  SigninRequestDto,
-  UserSignupRequestDto,
-} from './dto/users.request.dto';
+import { SigninRequestDto, SignupRequestDto } from './users.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { ReadOnlyUserDto, SigninResponseDto } from './dto/users.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
@@ -29,23 +25,21 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: '유저 생성 성공',
-    type: ReadOnlyUserDto,
   })
   @ApiResponse({
     status: 401,
     description: '이미 존재하는 유저입니다.',
-    type: null,
   })
   @Post('signup')
-  async signup(@Body() body: UserSignupRequestDto) {
-    return await this.usersService.signup(body);
+  async signup(@Body() body: SignupRequestDto) {
+    const { email, password, nickname } = body;
+    return await this.usersService.signup({ email, password, nickname });
   }
 
   @ApiOperation({ summary: '로그인' })
   @ApiResponse({
     status: 200,
     description: '유저 생성 성공',
-    type: SigninResponseDto,
   })
   @Post('signin')
   async signin(@Body() body: SigninRequestDto) {
