@@ -1,4 +1,9 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import {
+  MongooseModule as _MongooseModule,
+  Prop,
+  Schema,
+  SchemaFactory,
+} from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Document, SchemaOptions } from 'mongoose';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
@@ -34,7 +39,7 @@ export class User extends Document {
   })
   @IsString()
   @IsNotEmpty()
-  password: string;
+  hashedPassword: string;
 
   // nickname
   @ApiProperty({
@@ -61,8 +66,7 @@ export class User extends Document {
   readonly readOnlyData: { id: string; email: string; nickname: string };
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
-
+const UserSchema = SchemaFactory.createForClass(User);
 UserSchema.virtual('readOnlyData').get(function (this: User) {
   return {
     id: this.id,
@@ -70,3 +74,6 @@ UserSchema.virtual('readOnlyData').get(function (this: User) {
     nickname: this.nickname,
   };
 });
+export const MongooseModule = _MongooseModule.forFeature([
+  { name: User.name, schema: UserSchema },
+]);

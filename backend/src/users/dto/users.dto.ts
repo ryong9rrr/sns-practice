@@ -11,3 +11,7 @@ export class ReadOnlyUserDto extends PickType(User, [
   })
   id: string;
 }
+
+export class SigninResponseDto {
+  accessToken: string;
+}

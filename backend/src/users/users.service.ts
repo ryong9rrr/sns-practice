@@ -1,8 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
-
 import { UserSignupRequestDto } from './dto/users.request.dto';
 import { UsersRepository } from './users.repository';
+import { hash } from './utils/hash';
 
 @Injectable()
 export class UsersService {
@@ -18,7 +17,7 @@ export class UsersService {
       throw new UnauthorizedException('이미 존재하는 유저입니다.');
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hash(password);
     const newUser = await this.usersRepository.createUser({
       email,
       nickname,

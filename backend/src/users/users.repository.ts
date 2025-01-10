@@ -9,12 +9,8 @@ export class UsersRepository {
   ) {}
 
   async isExistUserByEmail({ email }: { email: string }) {
-    try {
-      const result = await this.userModel.exists({ email });
-      return result;
-    } catch (e) {
-      throw new HttpException('db error', 400);
-    }
+    const result = await this.userModel.exists({ email });
+    return result;
   }
 
   async createUser({
@@ -26,10 +22,24 @@ export class UsersRepository {
     nickname: string;
     hashedPassword: string;
   }) {
-    return await this.userModel.create({
+    const result = await this.userModel.create({
       email,
       nickname,
-      password: hashedPassword,
+      hashedPassword,
     });
+    return result;
+  }
+
+  async findUserByEmail(email: string) {
+    const user = await this.userModel.findOne({ email });
+    if (!user) {
+      throw new HttpException('존재하지 않는 유저입니다.', 400);
+    }
+    return user;
+  }
+
+  async findUserById({ id }: { id: string }) {
+    const user = await this.userModel.findById(id).select('-hashedPassword');
+    return user ?? null;
   }
 }
