@@ -1,14 +1,20 @@
 import { Link } from 'react-router'
 import { FormValueType, SignupForm } from '../components/signup/SignupForm'
-import axios from 'axios'
+import * as UserApi from '../remote/users'
+import { ClientError } from '../remote/errors'
 
 export const SignupPage = () => {
   const onSubmit = async (formValues: FormValueType) => {
-    const { data } = await axios.post('http://localhost:8000/users/signup', {
-      ...formValues,
-    })
-
-    console.log(data)
+    try {
+      const user = await UserApi.signup(formValues)
+      console.log(user)
+    } catch (error) {
+      if (error instanceof ClientError) {
+        window.alert('이미 존재하는 이메일이에요.')
+      } else {
+        window.alert('다시 시도해주세요.')
+      }
+    }
   }
 
   return (
