@@ -1,13 +1,24 @@
-import { BrowserRouter } from 'react-router'
-import { Router } from './pages/Router'
-import { AuthGuard } from './components/auth/AuthGuard'
+import { BrowserRouter, Route, Routes } from 'react-router'
+import { PrivateRoute } from './components/auth/PrivateRoute'
+import { HomePage } from './pages/HomePage'
+import { SigninPage } from './pages/SigninPage'
+import { SignupPage } from './pages/SignupPage'
 
-export default function App() {
+export const App = () => {
   return (
     <BrowserRouter>
-      <AuthGuard>
-        <Router />
-      </AuthGuard>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/signin" element={<SigninPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+      </Routes>
     </BrowserRouter>
   )
 }
