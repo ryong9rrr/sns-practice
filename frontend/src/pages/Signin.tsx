@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router'
 import { setAccessToken } from '../components/auth/token'
-import { SigninForm } from '../components/signin/SigninForm'
+import { SigninForm } from '../components/sign/SigninForm'
 import { ClientError } from '../remote/errors'
 import { signin } from '../remote/users'
 

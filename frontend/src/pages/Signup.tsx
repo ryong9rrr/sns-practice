@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { FormValueType, SignupForm } from '../components/signup/SignupForm'
+import { FormValueType, SignupForm } from '../components/sign/SignupForm'
 import * as UserApi from '../remote/users'
 import { ClientError } from '../remote/errors'
 

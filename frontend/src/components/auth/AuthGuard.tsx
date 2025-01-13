@@ -1,24 +1,23 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { PropsWithChildren, useCallback, useEffect, useState } from 'react'
 import { getMe } from '../../remote/users'
-import { User } from '../../models/users'
+import { useUserStore } from '../../stores/users'
 
-export const AuthGuard = ({ children }: { children: React.ReactNode | React.ReactNode[] }) => {
+export const AuthGuard = ({ children }: PropsWithChildren) => {
   const [isInitialized, setIsInitialized] = useState(false)
-  const [user, setUser] = useState<User | null>(null)
+  const { user, setUser } = useUserStore()
 
   const checkAuth = useCallback(async () => {
     const fetchedUser = await getMe()
     if (fetchedUser) {
       setUser(fetchedUser)
-      console.log(user)
     }
     setIsInitialized(true)
-  }, [user])
+  }, [setUser])
 
   useEffect(() => {
+    console.log('AuthGuard useEffect')
     checkAuth()
-    // eslint-disable-next-line
-  }, [])
+  }, [checkAuth])
 
   if (!isInitialized) {
     return null
