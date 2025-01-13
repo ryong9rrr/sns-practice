@@ -20,12 +20,12 @@ export const request = axios.create({
 
 export const authRequest = auth(request)
 
-// 400번대, 500번대 에러 처리
 request.interceptors.response.use(
   function (response) {
-    return response.data // 백엔드에서 형식을 이래 만듬...
+    return Promise.resolve(response.data) // 백엔드에서 형식을 이래 만듬...
   },
   function (error) {
+    // 400번대, 500번대 에러 처리
     if (error.response) {
       const { status } = error.response
 

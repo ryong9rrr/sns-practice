@@ -1,13 +1,19 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 
+export type SignupFormValues = {
+  email: string
+  password: string
+  nickname: string
+}
+
 interface SigupFormProps {
-  onSubmit: (formValues: FormValueType) => void
+  onSubmit: (formValues: SignupFormValues) => void
 }
 
 export const SignupForm = (props: SigupFormProps) => {
   const { onSubmit } = props
 
-  const [formValues, setFormValues] = useState<FormValueType>({
+  const [formValues, setFormValues] = useState<SignupFormValues>({
     email: '',
     password: '',
     nickname: '',
@@ -60,10 +66,4 @@ export const SignupForm = (props: SigupFormProps) => {
       </form>
     </>
   )
-}
-
-export type FormValueType = {
-  email: string
-  password: string
-  nickname: string
 }

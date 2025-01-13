@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import {
@@ -8,7 +9,7 @@ import {
   buttonWeakMap,
 } from '../../styles/button'
 
-interface ButtonProps {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: ButtonColor
   size?: ButtonSize
   weak?: boolean

@@ -2,16 +2,14 @@ import { createPortal } from 'react-dom'
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/react'
 import { colors } from '../../styles/colorPalette'
-import { Button } from './Button'
+import { Button, ButtonProps } from './Button'
 
-interface FixedBottomButtonProps {
+interface FixedBottomButtonProps extends ButtonProps {
   label: string
-  onClick: () => void
-  disabled?: boolean
 }
 
 export const FixedBottomButton = (props: FixedBottomButtonProps) => {
-  const { label, onClick, disabled } = props
+  const { label, ...buttonProps } = props
   const $portalRoot = document.getElementById('root-portal')
 
   if (!$portalRoot) {
@@ -21,9 +19,8 @@ export const FixedBottomButton = (props: FixedBottomButtonProps) => {
   return createPortal(
     <Container>
       <Button
+        {...buttonProps}
         size="medium"
-        disabled={disabled}
-        onClick={onClick}
         full
         style={{
           borderRadius: 8,

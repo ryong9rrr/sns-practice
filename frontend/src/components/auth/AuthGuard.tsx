@@ -1,18 +1,15 @@
 import { PropsWithChildren, useCallback, useEffect, useState } from 'react'
-import { getMe } from '../../remote/users'
 import { useUserStore } from '../../stores/users'
 
 export const AuthGuard = ({ children }: PropsWithChildren) => {
   const [isInitialized, setIsInitialized] = useState(false)
-  const { setUser } = useUserStore()
+  const { fetchUser } = useUserStore()
 
+  // user fetch check
   const checkAuth = useCallback(async () => {
-    const fetchedUser = await getMe()
-    if (fetchedUser) {
-      setUser(fetchedUser)
-    }
+    await fetchUser()
     setIsInitialized(true)
-  }, [setUser])
+  }, [fetchUser])
 
   useEffect(() => {
     console.log('AuthGuard useEffect')
