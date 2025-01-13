@@ -6,6 +6,7 @@ import { ClientError } from '../remote/errors'
 import { signin } from '../remote/users'
 import { TextField } from '../components/shared/TextField'
 import { Button } from '../components/shared/Button'
+import { useAlert } from '../components/shared/Alert/useAlert'
 
 export const SigninPage = () => {
   const navigate = useNavigate()
@@ -26,7 +27,11 @@ export const SigninPage = () => {
     }
   }
 
-  return <SigninForm onSubmit={handleSubmit} />
+  return (
+    <>
+      <SigninForm onSubmit={handleSubmit} />
+    </>
+  )
 }
 
 interface SigninFormProps {
@@ -34,6 +39,7 @@ interface SigninFormProps {
 }
 const SigninForm = (props: SigninFormProps) => {
   const { onSubmit } = props
+  const { alert } = useAlert()
 
   const [formValues, setFormValues] = useState<{ email: string; password: string }>({
     email: '',
@@ -53,26 +59,38 @@ const SigninForm = (props: SigninFormProps) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TextField
-        label="이메일"
-        placeholder="이메일을 입력해주세요"
-        name="email"
-        value={formValues.email}
-        onChange={handleChange}
-        hasError={true}
-        helpMessage="올바른 이메일을 입력해주세요"
-      />
-      <TextField
-        label="비밀번호"
-        placeholder="비밀번호를 입력해주세요"
-        name="password"
-        type="password"
-        value={formValues.password}
-        onChange={handleChange}
-        hasError={false}
-      />
-      <Button>로그인하기</Button>
-    </form>
+    <>
+      <Button
+        onClick={() =>
+          alert({
+            title: '알림',
+            description: '알림이에요',
+          })
+        }
+      >
+        알림 테스트
+      </Button>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="이메일"
+          placeholder="이메일을 입력해주세요"
+          name="email"
+          value={formValues.email}
+          onChange={handleChange}
+          hasError={true}
+          helpMessage="올바른 이메일을 입력해주세요"
+        />
+        <TextField
+          label="비밀번호"
+          placeholder="비밀번호를 입력해주세요"
+          name="password"
+          type="password"
+          value={formValues.password}
+          onChange={handleChange}
+          hasError={false}
+        />
+        <Button>로그인하기</Button>
+      </form>
+    </>
   )
 }

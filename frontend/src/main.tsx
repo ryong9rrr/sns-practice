@@ -4,12 +4,15 @@ import { App } from './App.tsx'
 import { AuthGuard } from './components/auth/AuthGuard.tsx'
 import { Global } from '@emotion/react'
 import globalStyles from './styles/globalStyles.ts'
+import { AlertProvider } from './components/shared/Alert/AlertProvider.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <>
     <Global styles={globalStyles} />
-    <AuthGuard>
-      <App />
-    </AuthGuard>
+    <AlertProvider>
+      <AuthGuard>
+        <App />
+      </AuthGuard>
+    </AlertProvider>
   </>,
 )
