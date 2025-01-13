@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import validate from 'validator'
+import validator from 'validator'
 import { TextField } from '../shared/TextField'
 import { Flex } from '../shared/Flex'
 import { Spacing } from '../shared/Spacing'
@@ -22,7 +22,7 @@ export const SigninForm = (props: SigninFormProps) => {
     password: '',
   })
 
-  const 제출가능 = validate.isEmail(formValues.email) && !!formValues.password
+  const 제출가능 = validator.isEmail(formValues.email) && !!formValues.password
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormValues((prev) => ({
@@ -57,7 +57,6 @@ export const SigninForm = (props: SigninFormProps) => {
           value={formValues.password}
           onChange={handleChange}
         />
-        <Spacing size={24} />
       </Flex>
       <FixedBottomButton
         type="submit"
