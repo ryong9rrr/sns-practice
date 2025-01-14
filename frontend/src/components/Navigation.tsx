@@ -1,4 +1,3 @@
-import { CSSProperties } from 'react'
 import { Link } from 'react-router'
 import { css } from '@emotion/react'
 import { GoHomeFill } from 'react-icons/go'
@@ -13,16 +12,16 @@ export const Navigation = () => {
     <div css={containerStyles}>
       <Flex justify="space-around" align="center">
         <Link to="/">
-          <GoHomeFill style={iconStyles} />
+          <GoHomeFill css={iconStyles} />
         </Link>
         <Link to="/search">
-          <GrSearch style={iconStyles} />
+          <GrSearch css={iconStyles} />
         </Link>
         <Link to="/addpost">
-          <MdAddToPhotos style={iconStyles} />
+          <MdAddToPhotos css={iconStyles} />
         </Link>
         <Link to="/my">
-          <FaUserCircle style={iconStyles} />
+          <FaUserCircle css={iconStyles} />
         </Link>
       </Flex>
     </div>
@@ -42,7 +41,6 @@ const containerStyles = css`
   box-sizing: border-box;
 `
 
-const iconStyles: CSSProperties = {
-  width: '28px',
-  height: '28px',
-}
+const iconStyles = css`
+  font-size: 26px;
+`

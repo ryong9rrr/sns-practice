@@ -27,8 +27,10 @@ export const SignupPage = () => {
       alert({
         title: (
           <Flex>
-            <Lottie src={checkLottieJson} size={20} />
-            <Spacing size={8} direction="horizontal" />
+            <div css={{ paddingTop: '1px' }}>
+              <Lottie src={checkLottieJson} size={20} />
+            </div>
+            <Spacing size={4} direction="horizontal" />
             <Text>회원가입이 끝났어요!</Text>
           </Flex>
         ),
@@ -66,16 +68,16 @@ export const SignupPage = () => {
 
   return (
     <>
-      <Text display="block" textAlign="center" typography="t2" bold style={{ marginTop: 16 }}>
+      <Text display="block" textAlign="center" typography="t2" bold css={{ marginTop: 16 }}>
         회원가입
       </Text>
       <Spacing size={16} />
-      <div style={{ padding: 12 }}>
+      <div css={{ padding: 12 }}>
         <SignupForm onSubmit={handleSubmit} />
       </div>
       {isEndSignup && (
         <div
-          style={{
+          css={{
             position: 'fixed',
             top: 0,
             left: 0,

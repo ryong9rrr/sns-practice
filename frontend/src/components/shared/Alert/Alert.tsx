@@ -24,14 +24,14 @@ export const Alert = (props: PrivateAlertProps) => {
   return (
     <Dimmed>
       <AlertContainer>
-        <Text typography="t4" bold display="block" style={{ marginBottom: 6 }}>
+        <Text typography="t4" bold display="block" css={{ marginBottom: 6 }}>
           {title}
         </Text>
 
         {description && <Text typography="t7">{description}</Text>}
 
         <Flex justify="flex-end">
-          <Button onClick={handleClose} weak style={{ marginTop: 12, border: 'none' }}>
+          <Button onClick={handleClose} weak css={{ marginTop: 12, border: 'none' }}>
             확인
           </Button>
         </Flex>

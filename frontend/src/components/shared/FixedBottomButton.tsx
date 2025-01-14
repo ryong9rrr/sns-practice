@@ -22,7 +22,7 @@ export const FixedBottomButton = (props: FixedBottomButtonProps) => {
         {...buttonProps}
         size="medium"
         full
-        style={{
+        css={{
           borderRadius: 8,
         }}
       >

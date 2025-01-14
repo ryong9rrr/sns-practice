@@ -45,16 +45,16 @@ export const SigninPage = () => {
 
   return (
     <>
-      <Text display="block" textAlign="center" typography="t2" bold style={{ marginTop: 16 }}>
+      <Text display="block" textAlign="center" typography="t2" bold css={{ marginTop: 16 }}>
         로그인
       </Text>
       <Spacing size={16} />
-      <div style={{ padding: 12 }}>
+      <div css={{ padding: 12 }}>
         <SigninForm onSubmit={handleSubmit} />
       </div>
-      <Flex justify="center" align="center" direction="column" style={{ marginTop: 8 }}>
+      <Flex justify="center" align="center" direction="column" css={{ marginTop: 8 }}>
         <Text
-          style={{
+          css={{
             fontSize: 12,
             fontWeight: 600,
           }}
@@ -63,7 +63,7 @@ export const SigninPage = () => {
         </Text>
         <Spacing size={4} />
         <Link
-          style={{
+          css={{
             fontSize: 12,
             color: colors.blue,
             fontWeight: 600,

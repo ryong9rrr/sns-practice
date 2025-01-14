@@ -35,10 +35,11 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       <div>
         {label && (
           <Text
+            as="label"
             typography="t7"
             color={labelColor}
             display="inline-block"
-            style={{ marginBottom: 6 }}
+            css={{ marginBottom: 6 }}
           >
             {label}
           </Text>
@@ -53,7 +54,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         />
 
         {helpMessage && (
-          <Text typography="t7" color={labelColor} display="inline-block" style={{ marginTop: 6 }}>
+          <Text typography="t7" color={labelColor} display="inline-block" css={{ marginTop: 6 }}>
             {helpMessage}
           </Text>
         )}

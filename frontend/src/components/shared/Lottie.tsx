@@ -34,7 +34,7 @@ export const Lottie = memo(
       }
     }, [autoplay, loop, src])
 
-    return <div ref={container} style={{ zIndex: -10, width: size, height: size }} />
+    return <div ref={container} css={{ zIndex: -10, width: size, height: size }} />
   },
   (prev, next) => {
     return prev.autoplay === next.autoplay && prev.loop === next.loop && prev.src === next.src
