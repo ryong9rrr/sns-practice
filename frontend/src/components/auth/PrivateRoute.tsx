@@ -1,6 +1,6 @@
-import { PropsWithChildren } from 'react'
 import { Navigate } from 'react-router'
 import { useUserStore } from '../../stores/users'
+import { PropsWithChildren } from 'react'
 
 export const PrivateRoute = ({ children }: PropsWithChildren) => {
   const { user } = useUserStore()
