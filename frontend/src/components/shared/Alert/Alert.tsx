@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import styled from '@emotion/styled'
 import { AlertProps } from './AlertContext'
 import { colors } from '../../../styles/colorPalette'
@@ -11,7 +12,14 @@ interface PrivateAlertProps extends AlertProps {
 }
 
 export const Alert = (props: PrivateAlertProps) => {
-  const { title, description, onClose } = props
+  const { title, description, onClose, onCloseAfter } = props
+
+  const handleClose = useCallback(async () => {
+    onClose()
+    if (onCloseAfter) {
+      await onCloseAfter()
+    }
+  }, [onClose, onCloseAfter])
 
   return (
     <Dimmed>
@@ -23,7 +31,7 @@ export const Alert = (props: PrivateAlertProps) => {
         {description && <Text typography="t7">{description}</Text>}
 
         <Flex justify="flex-end">
-          <Button onClick={onClose} weak style={{ marginTop: 12, border: 'none' }}>
+          <Button onClick={handleClose} weak style={{ marginTop: 12, border: 'none' }}>
             확인
           </Button>
         </Flex>

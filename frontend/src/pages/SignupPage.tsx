@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import * as UserApi from '../remote/users'
 import { ClientError } from '../remote/errors'
@@ -5,17 +6,49 @@ import { SignupForm, SignupFormValues } from '../components/sign/SignupForm'
 import { Text } from '../components/shared/Text'
 import { Spacing } from '../components/shared/Spacing'
 import { useAlert } from '../components/shared/Alert/useAlert'
+import { Lottie } from '../components/shared/Lottie'
+import { Flex } from '../components/shared/Flex'
+import { useUserStore } from '../stores/users'
+import checkLottieJson from '../assets/check-lottie.json'
+import congratulationLottieJson from '../assets/congratulation-lottie.json'
 
 export const SignupPage = () => {
+  const [isEndSignup, setIsEndSignup] = useState(false)
   const navigate = useNavigate()
   const { alert } = useAlert()
+  const { signin } = useUserStore()
 
   const handleSubmit = async (formValues: SignupFormValues) => {
     try {
       await UserApi.signup(formValues)
-      // TODO: Toast나 폭죽터지는 GIF 이미지로 바꾸기 (그 아래에다가 버튼 두기)
-      window.alert('회원가입이 완료되었습니다. 로그인해주세요')
-      navigate('/signin')
+
+      setIsEndSignup(true)
+
+      alert({
+        title: (
+          <Flex>
+            <Lottie src={checkLottieJson} size={20} />
+            <Spacing size={8} direction="horizontal" />
+            <Text>회원가입이 끝났어요!</Text>
+          </Flex>
+        ),
+        description: '바로 로그인 시켜드릴게요',
+        onCloseAfter: async () => {
+          try {
+            await signin({ email: formValues.email, password: formValues.password })
+            navigate('/', {
+              replace: true,
+            })
+          } catch (error) {
+            console.error(error)
+            alert({
+              title: '다시 시도해주세요',
+              description: '알 수 없는 문제가 발생했어요',
+            })
+            navigate('/signin')
+          }
+        },
+      })
     } catch (error) {
       if (error instanceof ClientError) {
         alert({
@@ -40,6 +73,19 @@ export const SignupPage = () => {
       <div style={{ padding: 12 }}>
         <SignupForm onSubmit={handleSubmit} />
       </div>
+      {isEndSignup && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          }}
+        >
+          <Lottie src={congratulationLottieJson} />
+        </div>
+      )}
     </>
   )
 }
