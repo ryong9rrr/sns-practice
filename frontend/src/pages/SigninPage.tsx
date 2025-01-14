@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { colors } from '../styles/colorPalette'
+import { colors } from '../components/shared/foundations/colorPalette'
 import { useUserStore } from '../stores/users'
 import { ClientError } from '../remote/errors'
 import { SigninForm, SigninFormValues } from '../components/sign/SigninForm'

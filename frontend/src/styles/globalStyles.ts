@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { colorPalette } from './colorPalette'
+import { colorPalette } from '../components/shared/foundations/colorPalette'
 import resetStyles from './resetStyles'
 
 export default css`

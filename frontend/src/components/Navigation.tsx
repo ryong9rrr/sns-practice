@@ -5,7 +5,7 @@ import { GrSearch } from 'react-icons/gr'
 import { MdAddToPhotos } from 'react-icons/md'
 import { FaUserCircle } from 'react-icons/fa'
 import { Flex } from './shared/Flex'
-import { colors } from '../styles/colorPalette'
+import { colors } from './shared/foundations/colorPalette'
 
 export const Navigation = () => {
   return (

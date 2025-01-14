@@ -1,5 +1,5 @@
 import { FocusEventHandler, forwardRef, InputHTMLAttributes, useState } from 'react'
-import { Colors } from '../../styles/colorPalette'
+import { Colors } from './foundations/colorPalette'
 import { Text } from './Text'
 import { Input } from './Input'
 

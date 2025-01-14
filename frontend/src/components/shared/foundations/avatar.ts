@@ -31,6 +31,21 @@ export const avatarSizeMap = {
     height: 56px;
     border-radius: 50%;
   `,
+  '3xlarge': css`
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+  `,
+  '4xlarge': css`
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+  `,
+  '5xlarge': css`
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  `,
 }
 
 export type AvatarSize = keyof typeof avatarSizeMap

@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react'
 import styled from '@emotion/styled'
-import { Typography, typographyMap } from '../../styles/typography'
-import { colors, Colors } from '../../styles/colorPalette'
+import { Typography, typographyMap } from './foundations/typography'
+import { colors, Colors } from './foundations/colorPalette'
 
 interface TextProps {
   typography?: Typography

@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import styled from '@emotion/styled'
 import { AlertProps } from './AlertContext'
-import { colors } from '../../../styles/colorPalette'
+import { colors } from '../foundations/colorPalette'
 import { Dimmed } from '../Dimmed'
 import { Text } from '../Text'
 import { Flex } from '../Flex'

@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom'
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/react'
-import { colors } from '../../styles/colorPalette'
+import { colors } from './foundations/colorPalette'
 import { Button, ButtonProps } from './Button'
 
 interface FixedBottomButtonProps extends ButtonProps {

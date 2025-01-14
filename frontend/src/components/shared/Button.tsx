@@ -7,7 +7,7 @@ import {
   ButtonSize,
   buttonSizeMap,
   buttonWeakMap,
-} from '../../styles/button'
+} from './foundations/button'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: ButtonColor
