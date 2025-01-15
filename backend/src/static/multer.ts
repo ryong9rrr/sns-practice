@@ -3,6 +3,7 @@ import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer
 import * as multer from 'multer';
 import * as path from 'path';
 import * as fs from 'fs';
+import { v4 as uuid } from 'uuid';
 
 const createFolder = (folder: string) => {
   try {
@@ -28,14 +29,15 @@ const storage = (folder: string): multer.StorageEngine => {
       cb(null, folderName);
     },
     filename(req, file, cb) {
-      //* 어떤 이름으로 올릴 지
-      const ext = path.extname(file.originalname);
+      // file 이름 정하기 : 아래는 원래 파일이름을 사용해야하는 경우
+      // const ext = path.extname(file.originalname);
+      // const fileName = `${path.basename(
+      //   file.originalname,
+      //   ext,
+      // )}${Date.now()}${ext}`;
 
-      const fileName = `${path.basename(
-        file.originalname,
-        ext,
-      )}${Date.now()}${ext}`;
-
+      // 원래 파일명은 필요없으므로 uuid 사용
+      const fileName = `${uuid()}${Date.now()}`;
       cb(null, fileName);
     },
   });
