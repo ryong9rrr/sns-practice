@@ -7,7 +7,7 @@ import { AvatarSize, avatarSizeMap } from './shared/foundations/avatar'
 import { colors } from './shared/foundations/colorPalette'
 
 interface EditableAvatarProps extends AvatarProps {
-  onChangeFile?: (file: File) => void
+  onChangeFile: (file: File) => void
 }
 
 export const EditableAvatar = (props: EditableAvatarProps) => {

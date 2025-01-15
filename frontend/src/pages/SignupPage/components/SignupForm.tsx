@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import validator from 'validator'
-import { Flex } from '../shared/Flex'
-import { TextField } from '../shared/TextField'
-import { Spacing } from '../shared/Spacing'
-import { FixedBottomButton } from '../shared/FixedBottomButton'
-import { containsSpecialCharacters } from '../../utils/validator'
+import { Flex } from '../../../components/shared/Flex'
+import { TextField } from '../../../components/shared/TextField'
+import { Spacing } from '../../../components/shared/Spacing'
+import { FixedBottomButton } from '../../../components/shared/FixedBottomButton'
+import { containsSpecialCharacters } from '../../../utils/validator'
 
 export type SignupFormValues = {
   nickname: string

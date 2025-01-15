@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UploadedFile,
+  UploadedFiles,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { UsersService } from './users.service';
 import { SigninRequestDto, SignupRequestDto } from './users.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -19,6 +29,22 @@ export class UsersController {
   @Get('my')
   getCurrentUser(@CurrentUser() user: User) {
     return user.readOnlyData;
+  }
+
+  @ApiOperation({ summary: '프로필 이미지를 업로드 할 수 있습니다.' })
+  @Post('upload/image')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadImage(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+    return '파일 업로드하기';
+  }
+
+  @ApiOperation({ summary: '여러 개의 게시물을 업로드 할 수 있습니다.' })
+  @Post('upload/posts')
+  @UseInterceptors(FileInterceptor('files'))
+  uploadPosts(@UploadedFiles() files: Array<Express.Multer.File>) {
+    console.log(files);
+    return '여러 개의 게시물 업로드';
   }
 
   @ApiOperation({ summary: ' 회원가입' })
@@ -45,17 +71,5 @@ export class UsersController {
   async signin(@Body() body: SigninRequestDto) {
     const { email, password } = body;
     return this.authService.jwtSignin({ email, password });
-  }
-
-  @ApiOperation({ summary: '로그아웃' })
-  @Post('signout')
-  async signout() {
-    return '로그아웃';
-  }
-
-  @ApiOperation({ summary: '파일을 업로드 할 수 있습니다.' })
-  @Post('uploadfile')
-  uploadfile() {
-    return '파일 업로드하기';
   }
 }

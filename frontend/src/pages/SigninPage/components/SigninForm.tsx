@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import validator from 'validator'
-import { TextField } from '../shared/TextField'
-import { Flex } from '../shared/Flex'
-import { Spacing } from '../shared/Spacing'
-import { FixedBottomButton } from '../shared/FixedBottomButton'
+import { TextField } from '../../../components/shared/TextField'
+import { Flex } from '../../../components/shared/Flex'
+import { Spacing } from '../../../components/shared/Spacing'
+import { FixedBottomButton } from '../../../components/shared/FixedBottomButton'
 
 export type SigninFormValues = {
   email: string

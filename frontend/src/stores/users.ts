@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { User } from '../models/users'
 import * as UserApi from '../remote/users'
-import { SigninFormValues } from '../components/sign/SigninForm'
+import { SigninFormValues } from '../pages/SigninPage/components/SigninForm'
 import { removeAccessToken, setAccessToken } from '../components/auth/token'
 
 interface UserStoreInterface {

@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { colors } from '../components/shared/foundations/colorPalette'
-import { useUserStore } from '../stores/users'
-import { ClientError } from '../remote/errors'
-import { SigninForm, SigninFormValues } from '../components/sign/SigninForm'
-import { Text } from '../components/shared/Text'
-import { Spacing } from '../components/shared/Spacing'
-import { Flex } from '../components/shared/Flex'
-import { useAlert } from '../components/shared/Alert/useAlert'
+import { colors } from '../../components/shared/foundations/colorPalette'
+import { useUserStore } from '../../stores/users'
+import { ClientError } from '../../remote/errors'
+import { Text } from '../../components/shared/Text'
+import { Spacing } from '../../components/shared/Spacing'
+import { Flex } from '../../components/shared/Flex'
+import { useAlert } from '../../components/shared/Alert/useAlert'
+import { SigninForm, SigninFormValues } from './components/SigninForm'
 
 export const SigninPage = () => {
   const navigate = useNavigate()
