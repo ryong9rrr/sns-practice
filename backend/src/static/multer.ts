@@ -1,7 +1,8 @@
+import { MulterModule as _MulterModule } from '@nestjs/platform-express';
+import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import * as multer from 'multer';
 import * as path from 'path';
 import * as fs from 'fs';
-import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 
 const createFolder = (folder: string) => {
   try {
@@ -43,6 +44,15 @@ const storage = (folder: string): multer.StorageEngine => {
 export const multerOptions = (folder: string) => {
   const result: MulterOptions = {
     storage: storage(folder),
+    fileFilter: (req, file, callback) => {
+      // 파일 유형 필터링 (예: 이미지 파일만 허용)
+      if (!file.mimetype.match(/\/(jpg|jpeg|png|gif|webp)$/)) {
+        return callback(new Error('Invalid file type'), false);
+      }
+      callback(null, true);
+    },
   };
   return result;
 };
+
+export const MulterModule = _MulterModule.register({ dest: './uploads' });

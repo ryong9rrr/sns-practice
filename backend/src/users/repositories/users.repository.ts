@@ -45,7 +45,7 @@ export class UsersRepository {
 
   async findByIdAndUpdateImage(id: string, fileName: string) {
     const user = await this.userModel.findById(id);
-    user.imgUrl = `http://localhost:8000/media/${fileName}`;
+    user.imgUrl = `http://localhost:8000/media/${fileName}`; // main.ts에 "media"로 뚫어놨음.
     const newUser = await user.save();
     return newUser.readOnlyData;
   }

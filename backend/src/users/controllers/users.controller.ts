@@ -14,8 +14,8 @@ import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { UsersService } from '../services/users.service';
 import { User } from '../users.schema';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
-import { multerOptions } from 'src/common/utils/multer/multer.options';
 import { SigninRequestDto, SignupRequestDto } from '../users.request.dto';
+import { multerOptions } from 'src/static/multer';
 
 @Controller('users')
 export class UsersController {
@@ -34,7 +34,7 @@ export class UsersController {
   @Post('upload/image')
   @ApiOperation({ summary: '프로필 이미지를 업로드 할 수 있습니다.' })
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('users'))) // "image" 라는 key를 frontend에서 맞춰줘야한다, 파일 개수는 최대 10개로 제한, "dist/common/upload/users" 폴더에 저장.
+  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('users'))) // "image" 라는 key를 frontend에서 맞춰줘야한다, 파일 개수는 최대 10개로 제한.
   uploadImage(
     @UploadedFiles() files: Array<Express.Multer.File>,
     @CurrentUser() user: User,

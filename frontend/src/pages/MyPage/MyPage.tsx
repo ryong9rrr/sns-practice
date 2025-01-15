@@ -24,7 +24,7 @@ export const MyPage = () => {
         console.error(error)
         alert({
           title: '다시 시도해주세요',
-          description: '알 수 없는 문제가 발생했어요',
+          description: '이미지 파일만 사용 할 수 있어요',
         })
       }
     },

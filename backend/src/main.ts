@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as expressBasicAuth from 'express-basic-auth';
-import * as path from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
@@ -32,7 +31,7 @@ async function bootstrap() {
 
   // file-upload
   // http://localhost:8000/media/users/xxx.png 로 접근 가능
-  app.useStaticAssets(path.join(__dirname, './common', 'uploads'), {
+  app.useStaticAssets(`${__dirname}/uploads`, {
     prefix: '/media',
   });
 

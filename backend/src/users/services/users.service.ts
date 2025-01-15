@@ -9,8 +9,6 @@ export class UsersService {
 
   async uploadImage(user: User, files: Express.Multer.File[]) {
     const fileName = `users/${files[0].filename}`;
-    console.log(fileName);
-
     const newUser = await this.usersRepository.findByIdAndUpdateImage(
       user.id,
       fileName,
