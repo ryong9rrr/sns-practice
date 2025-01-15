@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import * as UserApi from '../../remote/users'
 import { ClientError } from '../../remote/errors'
@@ -16,7 +16,7 @@ export const SignupPage = () => {
   const [isEndSignup, setIsEndSignup] = useState(false)
   const navigate = useNavigate()
   const { alert } = useAlert()
-  const { signin } = useUserStore()
+  const { user, signin } = useUserStore()
 
   const handleSubmit = async (formValues: SignupFormValues) => {
     try {
@@ -65,6 +65,14 @@ export const SignupPage = () => {
       })
     }
   }
+
+  useEffect(() => {
+    if (user) {
+      navigate('/', {
+        replace: true,
+      })
+    }
+  }, [navigate, user])
 
   return (
     <>
