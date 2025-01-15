@@ -8,14 +8,14 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { SigninRequestDto, SignupRequestDto } from './users.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { User } from './users.schema';
-import { UsersService } from './users.service';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
+import { UsersService } from '../services/users.service';
+import { User } from '../users.schema';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
-import { multerOptions } from 'src/common/utils/multer.options';
+import { multerOptions } from 'src/common/utils/multer/multer.options';
+import { SigninRequestDto, SignupRequestDto } from '../users.request.dto';
 
 @Controller('users')
 export class UsersController {

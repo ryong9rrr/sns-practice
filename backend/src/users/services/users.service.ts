@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersRepository } from './users.repository';
-import { hash } from './utils/hash';
-import { User } from './users.schema';
+import { UsersRepository } from '../repositories/users.repository';
+import { User } from '../users.schema';
+import { hash } from '../utils/hash';
 
 @Injectable()
 export class UsersService {
@@ -15,7 +15,6 @@ export class UsersService {
       user.id,
       fileName,
     );
-    console.log(newUser);
     return newUser;
   }
 
