@@ -50,4 +50,9 @@ const Container = styled.div<Pick<AvatarProps, 'size'>>(
   ({ size }) => avatarSizeMap[size],
 )
 
-const Img = styled.img<Pick<AvatarProps, 'size'>>(({ size }) => avatarSizeMap[size])
+const Img = styled.img<Pick<AvatarProps, 'size'>>(
+  {
+    objectFit: 'cover',
+  },
+  ({ size }) => avatarSizeMap[size],
+)
