@@ -1,7 +1,7 @@
-import { InjectModel } from '@nestjs/mongoose';
-import { User } from './users.schema';
 import { Model } from 'mongoose';
 import { HttpException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { User } from './users.schema';
 
 export class UsersRepository {
   constructor(
@@ -41,5 +41,13 @@ export class UsersRepository {
   async findUserById({ id }: { id: string }) {
     const user = await this.userModel.findById(id).select('-hashedPassword');
     return user ?? null;
+  }
+
+  async findByIdAndUpdateImage(id: string, fileName: string) {
+    const user = await this.userModel.findById(id);
+    user.imgUrl = `http://localhost:8000/media/${fileName}`;
+    const newUser = await user.save();
+    console.log(newUser);
+    return newUser.readOnlyData;
   }
 }

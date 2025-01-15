@@ -16,7 +16,9 @@ export const useUserStore = create<UserStoreInterface>((set, get) => ({
   fetchUser: async () => {
     const fetchedUser = await UserApi.getMe()
     if (fetchedUser) {
-      set(() => ({ user: fetchedUser }))
+      set(() => {
+        return { user: fetchedUser }
+      })
     }
   },
   signin: async (formValues: SigninFormValues) => {

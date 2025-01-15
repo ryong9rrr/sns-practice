@@ -1,28 +1,21 @@
-import { ChangeEvent, useCallback } from 'react'
 import { css, SerializedStyles } from '@emotion/react'
 import styled from '@emotion/styled'
 import { RiImageCircleFill } from 'react-icons/ri'
 import { Avatar, AvatarProps } from './shared/Avatar'
 import { AvatarSize, avatarSizeMap } from './shared/foundations/avatar'
 import { colors } from './shared/foundations/colorPalette'
+import { useSelectFiles } from '../hooks/useSelectFiles'
 
 interface EditableAvatarProps extends AvatarProps {
-  onChangeFile: (file: File) => void
+  onChangeFile: (files: FileList) => void
 }
 
 export const EditableAvatar = (props: EditableAvatarProps) => {
   const { onChangeFile, ...rest } = props
 
-  const handleChangeFile = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const selectedFile = e.target.files?.[0]
-      if (!selectedFile || !onChangeFile) {
-        return
-      }
-      onChangeFile(selectedFile)
-    },
-    [onChangeFile],
-  )
+  const { onSelect } = useSelectFiles({
+    handler: onChangeFile,
+  })
 
   return (
     <div css={{ display: 'inline-block', position: 'relative' }}>
@@ -35,7 +28,7 @@ export const EditableAvatar = (props: EditableAvatarProps) => {
         type="file"
         accept="image/*"
         css={{ display: 'none' }}
-        onChange={handleChangeFile}
+        onChange={onSelect}
       />
     </div>
   )

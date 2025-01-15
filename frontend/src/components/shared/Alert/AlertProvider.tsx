@@ -1,4 +1,4 @@
-import { PropsWithChildren, useCallback, useState } from 'react'
+import { PropsWithChildren, useCallback, useMemo, useState } from 'react'
 import { Alert } from './Alert'
 import { AlertContext, AlertProps } from './AlertContext'
 
@@ -13,12 +13,15 @@ export const AlertProvider = ({ children }: PropsWithChildren) => {
     setAlertPayload(alertProps)
   }, [])
 
+  const value = useMemo(
+    () => ({
+      alert: handleAlert,
+    }),
+    [handleAlert],
+  )
+
   return (
-    <AlertContext.Provider
-      value={{
-        alert: handleAlert,
-      }}
-    >
+    <AlertContext.Provider value={value}>
       {children}
       {alertPayload && <Alert {...alertPayload} onClose={handleClose} />}
     </AlertContext.Provider>

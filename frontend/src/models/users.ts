@@ -2,5 +2,5 @@ export type User = {
   id: string
   email: string
   nickname: string
-  profileImageUrl?: string
+  imgUrl?: string
 }

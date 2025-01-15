@@ -14,6 +14,15 @@ export const getMe = async () => {
   }
 }
 
+export const uploadAvatar = async (form: FormData) => {
+  const { data } = await authRequest.post<User>('/users/upload/image', form, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  return data
+}
+
 export const signup = async (props: { email: string; password: string; nickname: string }) => {
   const { email, password, nickname } = props
   const { data } = await request.post<User>('/users/signup', {

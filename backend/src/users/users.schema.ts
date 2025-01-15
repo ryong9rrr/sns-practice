@@ -59,11 +59,18 @@ export class User extends Document {
     example: 'https://...',
     description: 'imgUrl',
   })
-  @Prop()
+  @Prop({
+    default: 'https://cdn-icons-png.flaticon.com/128/847/847969.png',
+  })
   @IsString()
   imgUrl: string;
 
-  readonly readOnlyData: { id: string; email: string; nickname: string };
+  readonly readOnlyData: {
+    id: string;
+    email: string;
+    nickname: string;
+    imgUrl: string;
+  };
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
@@ -72,6 +79,7 @@ UserSchema.virtual('readOnlyData').get(function (this: User) {
     id: this.id,
     email: this.email,
     nickname: this.nickname,
+    imgUrl: this.imgUrl,
   };
 });
 export const MongooseModule = _MongooseModule.forFeature([
