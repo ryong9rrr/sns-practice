@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Navigation } from '../../components/Navigation'
 import { useUserStore } from '../../stores/users'
 import { EditableAvatar } from '../../components/EditableAvatar'
@@ -30,6 +30,11 @@ export const MyPage = () => {
     },
     [fetchUser, alert],
   )
+
+  useEffect(() => {
+    console.log('마이페이지 진입-------------')
+    console.log(window.history.state)
+  }, [])
 
   return (
     <>

@@ -1,89 +1,213 @@
-import { PropsWithChildren, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { v4 as uuid } from 'uuid'
 import { useNavigate } from 'react-router'
-import { Button } from '../../components/shared/Button'
-import { Flex } from '../../components/shared/Flex'
-import { Spacing } from '../../components/shared/Spacing'
-import { Navigation } from '../../components/Navigation'
+import { AddPhoto } from './components/AddPhoto'
+import { AddPost } from './components/AddPost'
+import { Confirm } from './components/Confirm'
+
+// step을 직접 변경할때마다 해줘야 할 것...
+// 1. query로 step을 바꾼다.
+// 2. state를 바꾼다.
+// 3. window.history.pushState 또는 window.history.replaceState로 URL을 변경한다.
+// 4. setLocation, setState를 업데이트한다.
+
+export interface FunnelStepProps {
+  onPrev?: () => void
+  onNext?: () => void
+}
+
+type InitialState = {
+  transactionId?: string
+  imageUrl?: string
+  title?: string
+  content?: string
+}
 
 export const AddPostPage = () => {
   const navigate = useNavigate()
-  const [step, setStep] = useState<'사진추가' | '게시물작성' | '최종확인'>('사진추가')
 
-  if (step === '사진추가') {
+  const [location, setLocation] = useState(() => {
+    if (typeof window === 'undefined') {
+      return { search: '' }
+    }
+    return { search: window.location.search }
+  })
+
+  const currentStep = useMemo(() => {
+    if (typeof window !== 'undefined') {
+      return new URLSearchParams(location.search).get('step')
+    }
+    return null
+  }, [location])
+
+  const [state, setState] = useState<InitialState>(() => {
+    if (typeof window === 'undefined') {
+      return {}
+    }
+    return { ...window.history.state.usr }
+  })
+
+  const redirectTo사진추가 = useCallback(() => {
+    const newTransactionId = uuid()
+    const nextQuery = new URLSearchParams({
+      step: '사진추가',
+    }).toString()
+    setLocation({ search: nextQuery })
+    setState({
+      transactionId: newTransactionId,
+    })
+    navigate(
+      {
+        pathname: '/addpost',
+        search: nextQuery,
+      },
+      {
+        state: {
+          transactionId: newTransactionId,
+        },
+      },
+    )
+    //window.history.replaceState({}, '', `?${nextQuery}`)
+  }, [navigate])
+
+  const 사진추가_에서_게시물작성_으로_넘어가기 = () => {
+    const imageUrl = '123' // 이런 이미지를 올렸다고 가정하고
+
+    // 바꿔주기
+    const nextQuery = new URLSearchParams({
+      step: '게시물작성',
+    }).toString()
+    const nextState = {
+      ...state,
+      imageUrl,
+    }
+    setLocation({ search: nextQuery })
+    setState(nextState)
+    navigate(
+      {
+        pathname: '/addpost',
+        search: nextQuery,
+      },
+      {
+        state: nextState,
+      },
+    )
+    //window.history.pushState(nextState, '', `?${nextQuery}`)
+  }
+
+  const 게시물작성_에서_사진추가_로_뒤로가기 = () => {
+    // 바꿔주기
+    const nextQuery = new URLSearchParams({
+      step: '사진추가',
+    }).toString()
+    setLocation({ search: nextQuery })
+    navigate({
+      pathname: '/addpost',
+      search: nextQuery,
+    })
+    //window.history.replaceState(state, '', `?${nextQuery}`)
+  }
+
+  const 게시물작성_에서_최종확인_으로_넘어가기 = () => {
+    const title = '제목' // 이런 제목을 적었다고 가정하고
+    const content = '내용' // 이런 내용을 적었다고 가정하고
+
+    // 바꿔주기
+    const nextQuery = new URLSearchParams({
+      step: '최종확인',
+    }).toString()
+    const nextState = {
+      ...state,
+      title,
+      content,
+    }
+    setLocation({ search: nextQuery })
+    setState(nextState)
+    navigate(
+      {
+        pathname: '/addpost',
+        search: nextQuery,
+      },
+      {
+        state: nextState,
+      },
+    )
+    //window.history.pushState(nextState, '', `?${nextQuery}`)
+  }
+
+  const 최종확인_에서_게시물작성_으로_뒤로가기 = () => {
+    // 바꿔주기
+    const nextQuery = new URLSearchParams({
+      step: '게시물작성',
+    }).toString()
+    setLocation({ search: nextQuery })
+    navigate({
+      pathname: '/addpost',
+      search: nextQuery,
+    })
+    //window.history.replaceState(state, '', `?${nextQuery}`)
+  }
+
+  const on최종제출 = () => {
+    window.alert('게시물이 성공적으로 작성되었습니다.')
+
+    // TODO: 클린업이 안된다... 그냥 로컬스토리지를 사용할까...
+    navigate('/my')
+  }
+
+  useEffect(() => {
+    const handlePopstate = (event: PopStateEvent) => {
+      setLocation({ search: window.location.search })
+      setState(event.state)
+    }
+
+    window.addEventListener('popstate', handlePopstate)
+    return () => {
+      window.removeEventListener('popstate', handlePopstate)
+    }
+  }, [location, state, currentStep])
+
+  useEffect(() => {
+    console.log('나의 state: ', state)
+    console.log('window state: ', window.history.state)
+
+    // guard
+    if (currentStep === '게시물작성' && !state.imageUrl) {
+      console.log('이미지를 추가하지 않았는데 게시물 작성 퍼널로 진입하여 리다이렉트 합니다.')
+      redirectTo사진추가()
+      return
+    }
+
+    if (currentStep === '최종확인' && (!state.title || !state.content)) {
+      console.log('제목이나 내용을 작성하지 않았는데 최종 확인 퍼널로 진입하여 리다이렉트 합니다.')
+      redirectTo사진추가()
+      return
+    }
+  }, [state, currentStep, location, redirectTo사진추가])
+
+  if (currentStep === '사진추가') {
     return (
-      <Layout>
-        <Flex justify="space-between" align="center">
-          <Button
-            weak
-            full
-            onClick={() => {
-              window.alert('뒤로가기')
-            }}
-            css={{ flex: 1 }}
-          >
-            이전
-          </Button>
-          <Spacing size={8} direction="horizontal" css={{ flex: 2 }} />
-          <Button full onClick={() => setStep('게시물작성')} css={{ flex: 1 }}>
-            다음
-          </Button>
-        </Flex>
-        <Spacing size={8} />
-        <h1>사진을 추가하는 퍼널</h1>
-      </Layout>
+      <AddPhoto
+        onPrev={() => {
+          window.alert('뒤로가기')
+        }}
+        onNext={사진추가_에서_게시물작성_으로_넘어가기}
+      />
     )
   }
 
-  if (step === '게시물작성') {
+  if (currentStep === '게시물작성') {
     return (
-      <Layout>
-        <Flex justify="space-between" align="center">
-          <Button weak full onClick={() => setStep('사진추가')} css={{ flex: 1 }}>
-            이전
-          </Button>
-          <Spacing size={8} direction="horizontal" css={{ flex: 2 }} />
-          <Button full onClick={() => setStep('최종확인')} css={{ flex: 1 }}>
-            다음
-          </Button>
-        </Flex>
-        <Spacing size={8} />
-        <h1>게시물의 내용을 작성하는 퍼널</h1>
-      </Layout>
+      <AddPost
+        onPrev={게시물작성_에서_사진추가_로_뒤로가기}
+        onNext={게시물작성_에서_최종확인_으로_넘어가기}
+      />
     )
   }
 
-  if (step === '최종확인') {
-    return (
-      <Layout>
-        <Flex justify="space-between" align="center">
-          <Button weak full onClick={() => setStep('게시물작성')} css={{ flex: 1 }}>
-            이전
-          </Button>
-          <Spacing size={8} direction="horizontal" css={{ flex: 2 }} />
-          <Button
-            full
-            onClick={() => {
-              window.alert('게시물이 성공적으로 작성되었습니다.')
-            }}
-            css={{ flex: 1 }}
-          >
-            완료
-          </Button>
-        </Flex>
-        <Spacing size={8} />
-        <h1>게시물을 최종 확인하는 퍼널</h1>
-      </Layout>
-    )
+  if (currentStep === '최종확인') {
+    return <Confirm onPrev={최종확인_에서_게시물작성_으로_뒤로가기} onNext={on최종제출} />
   }
 
   return null
-}
-
-const Layout = ({ children }: PropsWithChildren) => {
-  return (
-    <div>
-      <div css={{ padding: 1 }}>{children}</div>
-      <Navigation />
-    </div>
-  )
 }

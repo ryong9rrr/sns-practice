@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import { css } from '@emotion/react'
+import { v4 as uuid } from 'uuid'
 import { GoHomeFill } from 'react-icons/go'
 import { GrSearch } from 'react-icons/gr'
 import { MdAddToPhotos } from 'react-icons/md'
@@ -17,7 +18,12 @@ export const Navigation = () => {
         <Link to="/search">
           <GrSearch css={iconStyles} />
         </Link>
-        <Link to="/addpost">
+        <Link
+          to={`/addpost?step=사진추가`}
+          state={{
+            transactionId: uuid(),
+          }}
+        >
           <MdAddToPhotos css={iconStyles} />
         </Link>
         <Link to="/my">
