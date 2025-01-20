@@ -151,7 +151,9 @@ export const AddPostPage = () => {
   const on최종제출 = () => {
     window.alert('게시물이 성공적으로 작성되었습니다.')
 
-    // TODO: 클린업이 안된다... 그냥 로컬스토리지를 사용할까...
+    // TODO: 클린업이 안된다... 그냥 히스토리스테이트 말고 세션스토리지를 사용하자...
+    // TODO: 그래서 모든 데이터는 세션스토리지에 저장하고, 최종제출시에만 서버로 보내자.
+    // TODO: 세션스토리지에 저장된 데이터를 서버로 보내고, 세션스토리지를 비우자.
     navigate('/my')
   }
 
@@ -172,6 +174,9 @@ export const AddPostPage = () => {
     console.log('window state: ', window.history.state)
 
     // guard
+    // TODO: 받아놓은 트랜잭션ID가 없다면 리다이렉트
+    // if...
+
     if (currentStep === '게시물작성' && !state.imageUrl) {
       console.log('이미지를 추가하지 않았는데 게시물 작성 퍼널로 진입하여 리다이렉트 합니다.')
       redirectTo사진추가()

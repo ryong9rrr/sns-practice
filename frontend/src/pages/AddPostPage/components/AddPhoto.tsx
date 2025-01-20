@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Button } from '../../../components/shared/Button'
 import { Flex } from '../../../components/shared/Flex'
 import { Spacing } from '../../../components/shared/Spacing'
@@ -6,6 +7,10 @@ import { Layout } from '../Layout'
 
 export const AddPhoto = (props: FunnelStepProps) => {
   const { onPrev, onNext } = props
+
+  useEffect(() => {
+    console.log('트랜잭션ID를 여기서 만들어서 세션스토리지에 저장하는거임.')
+  }, [])
 
   return (
     <Layout>
